@@ -5,9 +5,9 @@ public enum ListOfAnimals {
     DOG,
     DUCK;
 
-    public static ListOfAnimals fromString(String command2) {
+    public static ListOfAnimals fromString(String animal) {
         try {
-            return ListOfAnimals.valueOf(command2.trim().toUpperCase());
+            return ListOfAnimals.valueOf(animal.trim().toUpperCase());
         }
         catch (IllegalArgumentException e) {
             return null;

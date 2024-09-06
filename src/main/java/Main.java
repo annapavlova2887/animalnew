@@ -1,11 +1,9 @@
 import animals.Animals;
-import animals.birds.Duck;
-import animals.pets.Cat;
-import animals.pets.Dog;
 import data.Comands;
 import java.util.ArrayList;
 import java.util.Scanner;
 import data.ListOfAnimals;
+import factory.AnimalFactory;
 import utils.ValidateNumber;
 
 
@@ -19,11 +17,10 @@ public class Main extends Animals {
 
         ValidateNumber validateNumber = new ValidateNumber();
         Scanner console = new Scanner(System.in);
-        boolean menue = true;
         ArrayList<Animals> newAnimals = new ArrayList<>();
 
 
-        while (menue) {
+        while (true) {
             System.out.println("Введите команду: add/list/exit");
             String input = console.next();
             Comands command = Comands.fromString(input);
@@ -36,15 +33,14 @@ public class Main extends Animals {
             switch (command) {
                 case ADD:
                     boolean chekAninal = false;
-                    ListOfAnimals command2 = null;
+                    ListOfAnimals animal = null;
 
                     System.out.println("Какое вы животное? (Cat/Dog/Duck)");
                     while (!chekAninal) {
                         String input2 = console.next();
-                        command2 = ListOfAnimals.fromString(input2);
-                        if (command2 == null) {
+                        animal = ListOfAnimals.fromString(input2);
+                        if (animal == null) {
                             System.out.println("У нас нет такого животного, попробуйте еще раз");
-                            continue;
                         } else {
                             chekAninal = true;
                           }
@@ -61,7 +57,6 @@ public class Main extends Animals {
                         ageString = console.next();
                         if (!validateNumber.isNumber(ageString)) {
                             System.out.println("Неверно введен возраст, попробуйте еще раз");
-                            continue;
                         } else {
                             ageconsole = Integer.parseInt(ageString);
                             if (ageconsole==0) {
@@ -80,7 +75,6 @@ public class Main extends Animals {
                             waString = console.next();
                             if (!validateNumber.isNumber(waString)) {
                                 System.out.println("Неверно введен вес, попробуйте еще раз");
-                                continue;
                             } else {
                                 waСonsole = Integer.parseInt(waString);
                                 if (waСonsole==0) {
@@ -94,23 +88,10 @@ public class Main extends Animals {
                         System.out.println("Введите цвет");
                         String colconsole = console.next();
 
-                        switch (command2) {
-                            case CAT:
-                                Cat cat = new Cat(nameconsole, ageconsole, waСonsole, colconsole);
-                                newAnimals.add(cat);
-                                cat.say();
-                                break;
-                            case DOG:
-                                Dog dog = new Dog(nameconsole, ageconsole, waСonsole, colconsole);
-                                newAnimals.add(dog);
-                                dog.say();
-                                break;
-                            case DUCK:
-                                Duck duck = new Duck(nameconsole, ageconsole, waСonsole, colconsole);
-                                newAnimals.add(duck);
-                                duck.say();
-                                break;
-                        }
+                    Animals animals = new AnimalFactory(nameconsole, ageconsole, waСonsole, colconsole).create(animal);
+                    newAnimals.add(animals);
+                    animals.say();
+
                     break;
                 case LIST:
                     for (Animals item : newAnimals) {
@@ -119,10 +100,10 @@ public class Main extends Animals {
                     break;
                 case EXIT:
                     System.out.println("Вы ввели Exit, сейчас программа завершит работу");
+                    console.close();
                     System.exit(0);
             }
         }
-        console.close();
     }
 }
 
