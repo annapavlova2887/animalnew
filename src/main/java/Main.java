@@ -50,12 +50,12 @@ public class Main extends Animals {
                         String nameconsole = console.next();
 
                     int ageconsole = 0;
-                    System.out.println("Введите возраст целым числом");
+                    System.out.println("Введите возраст целым числом, до 3 знаков включительно");
                     String ageString = null;
 
                     while (true) {
                         ageString = console.next();
-                        if (!validateNumber.isNumber(ageString)) {
+                        if (!validateNumber.isNumber(ageString) || ageString.length() > 3) {
                             System.out.println("Неверно введен возраст, попробуйте еще раз");
                         } else {
                             ageconsole = Integer.parseInt(ageString);
@@ -68,12 +68,12 @@ public class Main extends Animals {
                     }
 
                         int waСonsole = 0;
-                        System.out.println("Введите вес целым числом");
+                        System.out.println("Введите вес целым числом, до 3 знаков включительно");
                         String waString = null;
 
                         while (true) {
                             waString = console.next();
-                            if (!validateNumber.isNumber(waString)) {
+                            if (!validateNumber.isNumber(waString) || waString.length() > 3) {
                                 System.out.println("Неверно введен вес, попробуйте еще раз");
                             } else {
                                 waСonsole = Integer.parseInt(waString);
@@ -94,8 +94,12 @@ public class Main extends Animals {
 
                     break;
                 case LIST:
-                    for (Animals item : newAnimals) {
-                        System.out.println(item.toString());
+                    if (newAnimals.isEmpty()) {
+                        System.out.println("Пока нет ни одного животного");
+                    } else {
+                        for (Animals item : newAnimals) {
+                            System.out.println(item.toString());
+                        }
                     }
                     break;
                 case EXIT:
