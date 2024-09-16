@@ -2,10 +2,10 @@ package animals;
 
 public abstract class Animals {
 
-    String name;
-    int age;
-    int weight;
-    String color;
+   private String name;
+   private int age;
+   private int weight;
+   private String color;
 
     public Animals(String name, int age, int weight, String color) {
         this.name = name;
